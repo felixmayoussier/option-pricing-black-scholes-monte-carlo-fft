@@ -1,8 +1,5 @@
 # Pricing d'options européennes : Black–Scholes, Monte Carlo et FFT de Carr–Madan
 
-## Consulter le notebook
-
-
 
 Ce projet compare plusieurs méthodes de valorisation d'options européennes sous le modèle de Black–Scholes :
 
