@@ -14,27 +14,25 @@ L'objectif est d'étudier à la fois la précision numérique et la complexité 
 
 ## Contexte mathématique
 
-Sous la mesure risque-neutre, le prix d'un call européen s'écrit :
+Sous la mesure risque-neutre, le prix d'un call européen est donné par :
 
-\[
+$$
 C_0 = e^{-rT}\mathbb{E}\left[(S_T-K)^+\right]
-\]
+$$
 
 où :
 
-- \(S_T\) est le prix du sous-jacent à maturité ;
-- \(K\) est le prix d'exercice (strike) ;
-- \(r\) est le taux sans risque ;
-- \(T\) est la maturité ;
-- \(\sigma\) est la volatilité.
+- $S_T$ : prix du sous-jacent à maturité ;
+- $K$ : prix d'exercice (strike) ;
+- $r$ : taux sans risque ;
+- $T$ : maturité ;
+- $\sigma$ : volatilité.
 
-Dans le modèle de Black–Scholes, le sous-jacent suit l'équation différentielle stochastique :
+Dans le modèle de Black–Scholes, le sous-jacent suit :
 
-\[
-dS_t = rS_tdt + \sigma S_t dW_t
-\]
-
-ce qui permet d'obtenir une formule fermée pour le prix de l'option.
+$$
+dS_t = rS_t\,dt + \sigma S_t\,dW_t.
+$$
 
 ---
 
@@ -44,52 +42,58 @@ ce qui permet d'obtenir une formule fermée pour le prix de l'option.
 
 Cette méthode fournit la valeur exacte de référence dans le cadre du modèle de Black–Scholes.
 
-**Avantages :**
+**Avantages**
+
 - Calcul instantané ;
 - Solution exacte.
 
-**Limites :**
+**Limites**
+
 - Applicable uniquement lorsque l'on dispose d'une formule fermée.
 
 ---
 
 ### 2. Méthode de Monte Carlo
 
-Le prix de l'option est estimé à partir d'un grand nombre de trajectoires simulées :
+Le prix de l'option est estimé par :
 
-\[
-C_0 \approx e^{-rT}\frac{1}{N}
+$$
+C_0 \approx e^{-rT}
+\frac{1}{N}
 \sum_{i=1}^{N}
-(S_T^{(i)}-K)^+
-\]
+\left(S_T^{(i)}-K\right)^+.
+$$
 
-**Avantages :**
+**Avantages**
+
 - Très flexible ;
-- Applicable aux produits complexes et aux modèles multidimensionnels.
+- Applicable aux produits complexes ;
+- Utilisable en grande dimension.
 
-**Limites :**
+**Limites**
+
 - Temps de calcul élevé ;
-- Convergence relativement lente.
+- Convergence lente.
 
 ---
 
 ### 3. Méthode de Carr–Madan (FFT)
 
-La méthode de Carr–Madan exploite la fonction caractéristique du logarithme du sous-jacent et la Transformée de Fourier Rapide (FFT) afin de calculer efficacement les prix d'options sur une grille de strikes.
+La méthode de Carr–Madan exploite la fonction caractéristique du logarithme du sous-jacent ainsi que la Transformée de Fourier Rapide (FFT) afin de calculer efficacement une grille complète de prix d'options.
 
-**Avantages :**
-- Très rapide pour le calcul simultané d'un grand nombre de prix ;
+**Avantages**
+
+- Très rapide pour un grand nombre de strikes ;
 - Excellente efficacité numérique.
 
-**Limites :**
+**Limites**
+
 - Principalement adaptée aux options européennes ;
 - Extension multidimensionnelle coûteuse.
 
 ---
 
 ## Expériences numériques
-
-Le notebook réalise plusieurs expériences.
 
 ### Comparaison des prix
 
@@ -109,8 +113,8 @@ Les résultats observés montrent :
 
 | Méthode | Complexité observée |
 |----------|----------|
-| Monte Carlo | \(O(N^2)\) |
-| Carr–Madan FFT | \(O(N\log N)\) |
+| Monte Carlo | $O(N^2)$ |
+| Carr–Madan FFT | $O(N\log N)$ |
 
 La méthode de Carr–Madan devient rapidement beaucoup plus performante lorsque le nombre de strikes augmente.
 
@@ -122,25 +126,25 @@ Une section complémentaire étudie le comportement des méthodes lorsque l'opti
 
 ### Complexité de Carr–Madan
 
-\[
-O(N^d \log N)
-\]
+$$
+O\!\left(N^d\log N\right)
+$$
 
-où \(d\) représente le nombre de sous-jacents.
+où $d$ représente le nombre de sous-jacents.
 
 ### Complexité de Monte Carlo
 
-\[
-O(N_{sim}\times d)
-\]
+$$
+O\!\left(N_{\text{sim}}\,d\right)
+$$
 
 Les résultats montrent que :
 
-- La FFT est extrêmement efficace en dimension 1 ;
-- Son coût explose lorsque la dimension augmente ;
+- la FFT est extrêmement efficace en dimension 1 ;
+- son coût explose lorsque la dimension augmente ;
 - Monte Carlo reste la méthode de référence en grande dimension.
 
-Cette expérience illustre la malédiction de la dimension dans les méthodes basées sur la FFT multidimensionnelle.
+Cette expérience illustre la **malédiction de la dimension** pour les méthodes basées sur la FFT multidimensionnelle.
 
 ---
 
@@ -148,14 +152,14 @@ Cette expérience illustre la malédiction de la dimension dans les méthodes ba
 
 Pour une option européenne sur un seul sous-jacent :
 
-- La formule de Black–Scholes fournit la référence exacte ;
-- La méthode de Carr–Madan est significativement plus rapide que Monte Carlo ;
-- La complexité observée est proche de \(O(N\log N)\) ;
+- la formule de Black–Scholes fournit la référence exacte ;
+- la méthode de Carr–Madan est significativement plus rapide que Monte Carlo ;
+- la complexité observée est proche de $O(N\log N)$ ;
 - Monte Carlo présente une croissance beaucoup plus rapide du temps de calcul.
 
 Pour plusieurs sous-jacents :
 
-- La FFT multidimensionnelle devient rapidement impraticable ;
+- la FFT multidimensionnelle devient rapidement impraticable ;
 - Monte Carlo demeure l'approche privilégiée.
 
 ---
@@ -182,13 +186,21 @@ Pour plusieurs sous-jacents :
 
 ## Références
 
-- Black, F. & Scholes, M. (1973),
-  *The Pricing of Options and Corporate Liabilities*
+1. Black, F. & Scholes, M. (1973),
+   *The Pricing of Options and Corporate Liabilities*
 
-- Merton, R. (1973),
-  *Theory of Rational Option Pricing*
+2. Merton, R. (1973),
+   *Theory of Rational Option Pricing*
 
-- Carr, P. & Madan, D. (1999),
-  *Option Valuation Using the Fast Fourier Transform*
+3. Carr, P. & Madan, D. (1999),
+   *Option Valuation Using the Fast Fourier Transform*
 
+---
 
+## Auteur
+
+**Félix Mayoussier**
+
+Étudiant en Licence de Mathématiques à Sorbonne Université.
+
+Projet personnel réalisé dans le cadre de mon apprentissage de la finance quantitative, avec un intérêt particulier pour la valorisation numérique des produits dérivés, les probabilités et les méthodes de calcul scientifique.
