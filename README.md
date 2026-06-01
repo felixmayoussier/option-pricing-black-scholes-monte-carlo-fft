@@ -13,7 +13,7 @@ Le notebook présente les fondements théoriques, l'implémentation des différe
 
 - `pricing_options.ipynb` : notebook principal contenant les explications, les démonstrations numériques et les résultats.
 
-## Technologies utilisées
+## Outils utilisés
 
 - Python
 - NumPy
