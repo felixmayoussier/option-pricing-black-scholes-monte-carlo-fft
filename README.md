@@ -1,5 +1,12 @@
 # Pricing d'options européennes : Black–Scholes, Monte Carlo et FFT de Carr–Madan
 
+## Consulter le notebook
+
+👉 https://nbviewer.org/github/felixmayoussier/option-pricing-black-scholes-monte-carlo-fft/blob/main/pricing_options.ipynb
+
+Si l'aperçu GitHub ne s'affiche pas correctement, utilisez le lien ci-dessus pour consulter le notebook complet.
+
+
 Ce projet compare plusieurs méthodes de valorisation d'options européennes sous le modèle de Black–Scholes :
 
 - Formule analytique de Black–Scholes
